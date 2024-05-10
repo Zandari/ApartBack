@@ -1,0 +1,1 @@
+from apart.main import app
