@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pymongo import MongoClient
 from apart.routes.crud import router as crud_router
+from apart.routes.func import router as func_router
 import os
 import logging
 
@@ -21,3 +22,4 @@ def shutdown_db_client():
 
 
 app.include_router(crud_router, tags=["aparts"], prefix="/crud")
+app.include_router(func_router, tags=["functionality"], prefix="/action")
