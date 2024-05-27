@@ -9,7 +9,7 @@ services:
     develop:
       watch:
        - action: sync
-         path: .
+         path: ./apart
          target: /code
        - action: rebuild
          path: pyproject.toml poetry.lock

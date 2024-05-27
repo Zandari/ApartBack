@@ -1,13 +1,12 @@
 import uuid
-from typing import Optional, List
+from datetime import datetime
+from typing import Optional, List, Tuple
 from pydantic import BaseModel, Field, HttpUrl, Field
 
 
 class Location(BaseModel):
-    address: str
-    longitude: float
-    latitude: float
-    metro_station: str
+    type: str
+    coordinates: Tuple[float, float]
 
 
 class Additional(BaseModel):
@@ -18,10 +17,11 @@ class Additional(BaseModel):
     rooms_count: int
 
 
-
 class Apartment(BaseModel):
     rent: int = Field()
     currency: str = Field(max_length=3, min_length=3)
+    address: str
+    metro_station: str
     location: Location = Field()
     area: Optional[int] = Field()
     cover_image: HttpUrl = Field()
@@ -33,10 +33,11 @@ class Apartment(BaseModel):
 
 class ApartmentRecord(Apartment):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
 
 
 class Place(BaseModel):
     address: str
-    longitude: float
     latitude: float
+    longitude: float
     attendance: int
