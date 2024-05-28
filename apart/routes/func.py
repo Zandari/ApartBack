@@ -47,14 +47,16 @@ def get_aparts(
         rent_query["$gt"] = rent_min
     if rent_max is not None:
         rent_query["$lt"] = rent_max
-    query["rent"] = rent_query
+    if rent_query:
+        query["rent"] = rent_query
 
     area_query = dict()
     if area_min is not None:
         area_query["$gt"] = area_min
     if area_max is not None:
         area_query["$lt"] = area_max
-    query["area"] = area_query
+    if area_query:
+        query["area"] = area_query
 
     if rooms is not None:
         query["$additional.rooms_count"] = {"$in": rooms}
